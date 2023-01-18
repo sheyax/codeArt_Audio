@@ -48,7 +48,6 @@ const addListeners = () => {
 const createAudio = () => {
   audio = document.createElement("audio");
   audio.src = "audio/test.mp3";
-  console.log(audio.src);
 
   audioContext = new AudioContext();
   sourceNode = audioContext.createMediaElementSource(audio);

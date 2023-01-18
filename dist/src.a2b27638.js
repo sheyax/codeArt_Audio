@@ -2315,7 +2315,6 @@ var addListeners = function addListeners() {
 var createAudio = function createAudio() {
   audio = document.createElement("audio");
   audio.src = "audio/test.mp3";
-  console.log(audio.src);
   audioContext = new AudioContext();
   sourceNode = audioContext.createMediaElementSource(audio);
   sourceNode.connect(audioContext.destination);
