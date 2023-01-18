@@ -2297,6 +2297,13 @@ var sketch = function sketch() {
     //get audioData
     if (!audioContext) return;
     analyzerNode.getFloatFrequencyData(audioData);
+    var avg = getAverage(audioData);
+    context.save();
+    context.translate(width * 0.5, height * 0.5);
+    context.lineWidth = 10;
+    context.beginPath();
+    context.arc(0, 0, Math.abs(avg), 0, Math.PI * 2);
+    context.restore();
   };
 };
 var addListeners = function addListeners() {
@@ -2307,7 +2314,7 @@ var addListeners = function addListeners() {
 };
 var createAudio = function createAudio() {
   audio = document.createElement("audio");
-  audio.src = "./test.mp3";
+  audio.src = "audio/test.mp3";
   console.log(audio.src);
   audioContext = new AudioContext();
   sourceNode = audioContext.createMediaElementSource(audio);
@@ -2315,7 +2322,14 @@ var createAudio = function createAudio() {
   analyzerNode = audioContext.createAnalyser();
   sourceNode.connect(analyzerNode);
   audioData = new Float32Array(analyzerNode.frequencyBinCount);
-  console.log(audioData.length);
+  console.log(audioData);
+};
+var getAverage = function getAverage(data) {
+  var sum = 0;
+  for (var i = 0; i < data.length; i++) {
+    sum += data[i];
+  }
+  return sum / data.length;
 };
 addListeners();
 canvasSketch(sketch, settings);
