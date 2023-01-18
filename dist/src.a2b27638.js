@@ -2273,7 +2273,7 @@ var global = arguments[3];
 
 },{}],"src/index.js":[function(require,module,exports) {
 var canvasSketch = require("canvas-sketch");
-var test = "https://artlist.io/song/108542/maximum";
+var test = "./test.mp3";
 console.log(test);
 var settings = {
   dimensions: [1080, 1080]
@@ -2283,9 +2283,9 @@ var settings = {
 var audio;
 var sketch = function sketch() {
   //create html audio element
-  // audio = document.createElement("audio");
-  // audio.src = "test.mp3";
-  audio = new Audio(test);
+  audio = document.createElement("audio");
+  audio.src = "./test.mp3";
+  console.log(audio.src);
   //audio.autoplay= true;
   // audio.play();
 

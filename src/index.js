@@ -1,6 +1,6 @@
 const canvasSketch = require("canvas-sketch");
 
-const test = "https://artlist.io/song/108542/maximum";
+const test = "./test.mp3";
 console.log(test);
 
 const settings = {
@@ -12,9 +12,9 @@ let audio;
 
 const sketch = () => {
   //create html audio element
-  // audio = document.createElement("audio");
-  // audio.src = "test.mp3";
-  audio = new Audio(test);
+  audio = document.createElement("audio");
+  audio.src = "./test.mp3";
+  console.log(audio.src);
   //audio.autoplay= true;
   // audio.play();
 
