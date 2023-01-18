@@ -2,19 +2,31 @@ const canvasSketch = require("canvas-sketch");
 
 const settings = {
   dimensions: [1080, 1080],
-  animate: true
+  animate: true,
 };
+
+let audio;
 
 const sketch = () => {
   //create html audio element
-  const audio = document.createElement("audio");
-  audio.src = "";
-  audio.play();
+  audio = document.createElement("audio");
+  audio.src = "https://artlist.io/song/108542/maximum";
+  //audio.autoplay= true;
+  // audio.play();
 
   return ({ context, width, height }) => {
     context.fillStyle = "white";
     context.fillRect(0, 0, width, height);
   };
 };
+
+const addListeners = () => {
+  window.addEventListener("mouseup", () => {
+    if (audio.paused) audio.play();
+    else audio.pause();
+  });
+};
+
+addListeners();
 
 canvasSketch(sketch, settings);
