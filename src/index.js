@@ -1,16 +1,20 @@
 const canvasSketch = require("canvas-sketch");
 
+const test = "https://artlist.io/song/108542/maximum";
+console.log(test);
+
 const settings = {
   dimensions: [1080, 1080],
-  animate: true,
+  //animate: true,
 };
 
 let audio;
 
 const sketch = () => {
   //create html audio element
-  audio = document.createElement("audio");
-  audio.src = "test.mp3";
+  // audio = document.createElement("audio");
+  // audio.src = "test.mp3";
+  audio = new Audio(test);
   //audio.autoplay= true;
   // audio.play();
 
@@ -22,8 +26,7 @@ const sketch = () => {
 
 const addListeners = () => {
   window.addEventListener("mouseup", () => {
-    if (audio.paused) audio.play();
-    else audio.pause();
+    audio.play();
   });
 };
 
