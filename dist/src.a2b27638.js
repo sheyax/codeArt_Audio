@@ -2276,16 +2276,14 @@ var canvasSketch = require("canvas-sketch");
 var test = "./test.mp3";
 console.log(test);
 var settings = {
-  dimensions: [1080, 1080]
-  //animate: true,
+  dimensions: [1080, 1080],
+  animate: true
 };
-
 var audio;
+var audioContext, sourceNode, analyzerNode, audioData;
 var sketch = function sketch() {
   //create html audio element
-  audio = document.createElement("audio");
-  audio.src = "./test.mp3";
-  console.log(audio.src);
+
   //audio.autoplay= true;
   // audio.play();
 
@@ -2295,12 +2293,29 @@ var sketch = function sketch() {
       height = _ref.height;
     context.fillStyle = "white";
     context.fillRect(0, 0, width, height);
+
+    //get audioData
+    if (!audioContext) return;
+    analyzerNode.getFloatFrequencyData(audioData);
   };
 };
 var addListeners = function addListeners() {
   window.addEventListener("mouseup", function () {
-    audio.play();
+    if (!audioContext) createAudio();
+    if (audio.paused) audio.play();else audio.pause();
   });
+};
+var createAudio = function createAudio() {
+  audio = document.createElement("audio");
+  audio.src = "./test.mp3";
+  console.log(audio.src);
+  audioContext = new AudioContext();
+  sourceNode = audioContext.createMediaElementSource(audio);
+  sourceNode.connect(audioContext.destination);
+  analyzerNode = audioContext.createAnalyser();
+  sourceNode.connect(analyzerNode);
+  audioData = new Float32Array(analyzerNode.frequencyBinCount);
+  console.log(audioData.length);
 };
 addListeners();
 canvasSketch(sketch, settings);
